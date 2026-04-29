@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive Periodic Table – explore elements in Grid, 3D Sphere, and Helix views" />
+  <title>Elementum — Interactive Periodic Table</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600;700;800&family=Kode+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- ───────────── HEADER ───────────── -->
+  <header class="site-header">
+    <div class="header-left">
+      <span class="logo-mark">⬡</span>
+      <h1 class="site-title">ELEMENTUM</h1>
+    </div>
+
+    <div class="header-center">
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="searchInput" placeholder="Search element, symbol, or number…" autocomplete="off" />
+        <button class="clear-btn" id="clearSearch" title="Clear">✕</button>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+        <span class="theme-icon">◑</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ───────────── VIEW MODE SWITCHER ───────────── -->
+  <nav class="mode-bar">
+    <button class="mode-btn active" data-mode="grid">
+      <span class="mode-icon">⊞</span> Grid
+    </button>
+    <button class="mode-btn" data-mode="sphere">
+      <span class="mode-icon">◉</span> Sphere 3D
+    </button>
+    <button class="mode-btn" data-mode="helix">
+      <span class="mode-icon">⟳</span> Helix 3D
+    </button>
+    <button class="mode-btn quiz-btn" data-mode="quiz">
+      <span class="mode-icon">?</span> Quiz
+    </button>
+  </nav>
+
+  <!-- ───────────── CATEGORY FILTER LEGEND ───────────── -->
+  <div class="legend-bar" id="legendBar">
+    <button class="legend-pill active" data-cat="all">All</button>
+    <button class="legend-pill" data-cat="alkali-metal">Alkali Metal</button>
+    <button class="legend-pill" data-cat="alkaline-earth">Alkaline Earth</button>
+    <button class="legend-pill" data-cat="transition-metal">Transition Metal</button>
+    <button class="legend-pill" data-cat="post-transition">Post-Transition</button>
+    <button class="legend-pill" data-cat="metalloid">Metalloid</button>
+    <button class="legend-pill" data-cat="nonmetal">Nonmetal</button>
+    <button class="legend-pill" data-cat="noble-gas">Noble Gas</button>
+    <button class="legend-pill" data-cat="lanthanide">Lanthanide</button>
+    <button class="legend-pill" data-cat="actinide">Actinide</button>
+  </div>
+
+  <!-- ───────────── MAIN VIEWS ───────────── -->
+  <main class="view-container">
+
+    <!-- GRID VIEW -->
+    <section class="view active" id="gridView">
+      <div class="pt-grid" id="ptGrid"></div>
+      <!-- Lanthanide / Actinide rows -->
+      <div class="f-block-wrap">
+        <div class="f-block-label">Lanthanides (57–71)</div>
+        <div class="f-block-row" id="lanthanideRow"></div>
+        <div class="f-block-label" style="margin-top:6px">Actinides (89–103)</div>
+        <div class="f-block-row" id="actinideRow"></div>
+      </div>
+    </section>
+
+    <!-- SPHERE 3D VIEW -->
+    <section class="view" id="sphereView">
+      <canvas id="sphereCanvas"></canvas>
+      <div class="canvas-hint">Click an element · Drag to rotate</div>
+    </section>
+
+    <!-- HELIX 3D VIEW -->
+    <section class="view" id="helixView">
+      <canvas id="helixCanvas"></canvas>
+      <div class="canvas-hint">Click an element · Drag to rotate</div>
+    </section>
+
+    <!-- QUIZ VIEW -->
+    <section class="view" id="quizView">
+      <div class="quiz-card">
+        <div class="quiz-score-bar">
+          <span id="scoreDisplay">Score: <strong>0</strong></span>
+          <span id="streakDisplay">Streak: <strong id="streakCount">0</strong> 🔥</span>
+          <span id="totalDisplay">Total: <strong id="totalCount">0</strong></span>
+        </div>
+        <div class="quiz-question" id="quizQuestion">Loading question…</div>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-next-btn" id="quizNextBtn" style="display:none">Next Question →</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ───────────── ELEMENT DETAIL PANEL ───────────── -->
+  <aside class="detail-panel" id="detailPanel">
+    <button class="panel-close" id="panelClose">✕</button>
+    <div class="panel-inner" id="panelInner">
+      <!-- filled by JS -->
+    </div>
+  </aside>
+  <div class="panel-overlay" id="panelOverlay"></div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
